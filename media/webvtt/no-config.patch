@@ -1,0 +1,22 @@
+diff -ubr old/webvtt/util.h include/webvtt/util.h
+--- old/webvtt/util.h	2013-01-28 10:54:49.000000000 -0500
++++ include/webvtt/util.h	2013-01-28 10:54:14.000000000 -0500
+@@ -5,14 +5,15 @@
+ extern "C" {
+ #endif
+ 
++# ifndef WEBVTT_STATIC
++#   define WEBVTT_STATIC (1)
++# endif
++
+ # if defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+-#   include "webvtt-config-win32.h"
+ #   define WEBVTT_OS_WIN32 1
+ #   if defined(_WIN64)
+ #     define WEBVTT_OS_WIN64 1
+ #   endif
+-# else
+-#   include <webvtt/webvtt-config.h>
+ # endif
+ 
+ # if defined(_MSC_VER)
