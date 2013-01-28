@@ -6,7 +6,7 @@ BRANCH=dev
 REPO=gunk
 SRCDIR=.
 
-rm -rf ${SRCDIR}
+rm -rf include src
 
 if [ -d ${REPO}/.git ]; then
   echo "Updating existing checkout..."
@@ -17,22 +17,14 @@ else
 fi
  
 #Create directories
-mkdir \
-  ${SRCDIR} \
-  ${SRCDIR}/include \
-  ${SRCDIR}/include/webvtt \
-  ${SRCDIR}/include/webvttxx \
-  ${SRCDIR}/libwebvtt
+mkdir include include/webvtt src 
 
 #Copy C headers
 find ${REPO}/include/webvtt -type f -name '[^w]*.h' -exec cp '{}' ${SRCDIR}/include/webvtt/ \;
-#Copy C++ headers
-find ${REPO}/include/webvttxx -type f -regex '[^.]+$' -exec cp '{}' ${SRCDIR}/include/webvttxx/ \;
 #Copy C sources
-find ${REPO}/src/libwebvtt -type f -name '*.[ch]' -exec cp '{}' ${SRCDIR}/libwebvtt/ \;
-#Copy C++ sources
-find ${REPO}/src/libwebvttxx -type f -name '*.cpp' -exec cp '{}' ${SRCDIR}/libwebvtt/ \;
+find ${REPO}/src/libwebvtt -type f -name '*.[ch]' -exec cp '{}' ${SRCDIR}/src/ \;
 
 rm -rf ${REPO}
 
-#patch . < update.sh
+patch -p 0 -r . < no-config.patch
+patch -p 0 -r . < patch2.patch

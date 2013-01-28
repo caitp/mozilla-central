@@ -6,51 +6,33 @@ DEPTH           = ../..
 topsrcdir       = @top_srcdir@
 srcdir          = @srcdir@
 VPATH           = @srcdir@
+DIRS            = src
   
 include $(DEPTH)/config/autoconf.mk
 
 MODULE            = webvtt
 LIBRARY_NAME      = webvtt
-LIBXUL_LIBRARY    = 1
+
 #Doesn't seem to matter
 FORCE_STATIC_LIB = 1
 
-EXPORTS_NAMESPACES = webvtt webvttxx
+EXPORTS_NAMESPACES = webvtt
 EXPORTS_webvtt = \
-  webvtt/cue.h \
-  webvtt/error.h \
-  webvtt/parser.h \
-  webvtt/string.h \
-  webvtt/util.h \
-  $(NULL)
-
-EXPORTS_webvttxx = \
-  webvttxx/abstract_parser \
-  webvttxx/base \
-  webvttxx/cue \
-  webvttxx/error \
-  webvttxx/file_parser \
-  webvttxx/node \
-  webvttxx/nodefactory \
-  webvttxx/string \
-  webvttxx/timestamp \
+  include/webvtt/cue.h \
+  include/webvtt/error.h \
+  include/webvtt/parser.h \
+  include/webvtt/string.h \
+  include/webvtt/util.h \
   $(NULL)
 
 CSRCS = \
-  alloc.c \
-  cue.c \
-  cuetext.c \
-  error.c \
-  lexer.c \
-  parser.c \
-  string.c \
+  src/alloc.c \
+  src/cue.c \
+  src/cuetext.c \
+  src/error.c \
+  src/lexer.c \
+  src/parser.c \
+  src/string.c \
   $(NULL)
 
-CPPSRCS = \
-  abstract_parser.cpp \
-  file_parser.cpp \
-  node.cpp \
-  nodefactory.cpp \
-  $(NULL)
-  
 include $(topsrcdir)/config/rules.mk

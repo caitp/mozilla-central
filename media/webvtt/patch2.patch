@@ -1,0 +1,22 @@
+diff -uN old/Makefile.in src/Makefile.in
+--- old/Makefile.in	1969-12-31 19:00:00.000000000 -0500
++++ src/Makefile.in	2013-01-28 12:52:03.000000000 -0500
+@@ -0,0 +1,18 @@
++# This Source Code Form is subject to the terms of the Mozilla Public
++# License, v. 2.0. If a copy of the MPL was not distributed with this
++# file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++DEPTH           = ../../..
++topsrcdir       = @top_srcdir@
++srcdir          = @srcdir@
++VPATH           = @srcdir@
++DIRS            = src
++  
++include $(DEPTH)/config/autoconf.mk
++
++MODULE            = webvtt
++LIBRARY_NAME      = webvtt
++
++#Empty Makefile.in to force directory creation
++
++include $(topsrcdir)/config/rules.mk
