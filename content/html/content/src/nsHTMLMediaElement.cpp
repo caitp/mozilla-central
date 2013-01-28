@@ -3415,6 +3415,7 @@ void nsHTMLMediaElement::FireTimeUpdate(bool aPeriodic)
   }
 
   // HACK: update current text track cue from here
+#if 0
   nsIFrame* frame = GetPrimaryFrame();
   if (frame && frame->GetType() == nsGkAtoms::HTMLVideoFrame) {
     nsIContent *overlay = static_cast<nsVideoFrame*>(frame)->GetCaptionOverlay();
@@ -3432,6 +3433,7 @@ void nsHTMLMediaElement::FireTimeUpdate(bool aPeriodic)
         "<p>%s</p>\n", time, text);
     div->SetInnerHTML(NS_ConvertUTF8toUTF16(timestring));
   }
+#endif
 }
 
 void nsHTMLMediaElement::GetCurrentSpec(nsCString& aString)
