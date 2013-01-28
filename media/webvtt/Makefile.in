@@ -2,27 +2,55 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-DEPTH		= ../..
+DEPTH           = ../..
 topsrcdir       = @top_srcdir@
 srcdir          = @srcdir@
 VPATH           = @srcdir@
-
+  
 include $(DEPTH)/config/autoconf.mk
 
-MODULE		= webvtt
-LIBRARY_NAME	= webvtt
-FORCE_STATIC_LIB= 1
+MODULE            = webvtt
+LIBRARY_NAME      = webvtt
+LIBXUL_LIBRARY    = 1
+#Doesn't seem to matter
+FORCE_STATIC_LIB = 1
 
-EXPORTS = \
-  webvtt.h \
+EXPORTS_NAMESPACES = webvtt webvttxx
+EXPORTS_webvtt = \
+  webvtt/cue.h \
+  webvtt/error.h \
+  webvtt/parser.h \
+  webvtt/string.h \
+  webvtt/util.h \
   $(NULL)
 
-VPATH += \
-  $(srcdir)/src \
+EXPORTS_webvttxx = \
+  webvttxx/abstract_parser \
+  webvttxx/base \
+  webvttxx/cue \
+  webvttxx/error \
+  webvttxx/file_parser \
+  webvttxx/node \
+  webvttxx/nodefactory \
+  webvttxx/string \
+  webvttxx/timestamp \
   $(NULL)
 
 CSRCS = \
-  webvtt.c \
+  alloc.c \
+  cue.c \
+  cuetext.c \
+  error.c \
+  lexer.c \
+  parser.c \
+  string.c \
   $(NULL)
 
+CPPSRCS = \
+  abstract_parser.cpp \
+  file_parser.cpp \
+  node.cpp \
+  nodefactory.cpp \
+  $(NULL)
+  
 include $(topsrcdir)/config/rules.mk

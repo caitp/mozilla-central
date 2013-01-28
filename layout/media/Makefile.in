@@ -67,6 +67,12 @@ SHARED_LIBRARY_LIBS 	+= \
 	$(NULL)
 endif
 
+ifdef MOZ_WEBVTT
+SHARED_LIBRARY_LIBS	+= \
+	$(DEPTH)/media/webvtt/$(LIB_PREFIX)webvtt.$(LIB_SUFFIX) \
+	$(NULL)
+endif
+
 ifdef MOZ_VP8
 ifndef MOZ_NATIVE_LIBVPX
 SHARED_LIBRARY_LIBS 	+= \

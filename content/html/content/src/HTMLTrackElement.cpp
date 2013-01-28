@@ -32,7 +32,7 @@
 #include "nsThreadUtils.h"
 #include "nsIFrame.h"
 #include "nsVideoFrame.h"
-#include "webvtt.h"
+#include <webvtt/parser.h>
 
 #ifdef PR_LOGGING
 #warning enabling nspr logging
@@ -150,6 +150,9 @@ HTMLTrackElement::LoadListener::OnDataAvailable(nsIRequest* aRequest,
     buf[read] = '\0';
     printf("Track data:\n%s\n", buf);
 
+#if 0
+    // TODO:
+    // Implement this using libwebvtt
     webvtt_parser *webvtt = webvtt_parse_new();
     NS_ENSURE_TRUE(webvtt, NS_ERROR_FAILURE);
     webvtt_cue *cue = webvtt_parse_buffer(webvtt, buf, read);
@@ -168,7 +171,7 @@ HTMLTrackElement::LoadListener::OnDataAvailable(nsIRequest* aRequest,
       nsCOMPtr<nsIDOMHTMLElement> div = do_QueryInterface(overlay);
       div->SetInnerHTML(NS_ConvertUTF8toUTF16(cue->text));
     }
-
+#endif
     free(buf);
   }
 

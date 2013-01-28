@@ -29,7 +29,7 @@
 #include "AudioChannelAgent.h"
 //XXXhumph: commented out in rillian's original...
 //#include "mozilla/dom/TextTrack.h"
-#include "webvtt.h"
+#include <webvtt/parser.h>
 
 // Define to output information on decoding and painting framerate
 /* #define DEBUG_FRAME_RATE 1 */

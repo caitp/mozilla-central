@@ -9,7 +9,7 @@
 #include "nsBuiltinDecoderReader.h"
 #include "nsWebVTTReader.h"
 
-#include "webvtt/webvtt.h"
+#include <webvtt/parser.h>
 
 nsWebVTTReader::nsWebVTTReader(nsBuildinDecoder* aDecoder)
   : nsBuiltinDecoderReader(aDecoder)
