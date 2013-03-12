@@ -33,6 +33,7 @@
 #include "nsIFrame.h"
 #include "nsVideoFrame.h"
 #include "nsISupportsImpl.h"
+#include "WebVTTLoadListener.h"
 #include "webvtt/parser.h"
 
 #ifdef PR_LOGGING
@@ -47,8 +48,8 @@ NS_IMPL_NS_NEW_HTML_ELEMENT(Track)
 namespace mozilla {
 namespace dom {
 
-NS_IMPL_ISUPPORTS5(nsIRequestObserver, nsIStreamListener, nsIChannelEventSink,
-                   nsIInterfaceRequestor, nsIObserver)
+//NS_IMPL_ISUPPORTS5(HTMLTrackElement, nsIRequestObserver, nsIStreamListener,
+//    nsIChannelEventSink, nsIInterfaceRequestor, nsIObserver)
 
 /** HTMLTrackElement */
 HTMLTrackElement::HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo)
@@ -149,7 +150,7 @@ HTMLTrackElement::LoadResource(nsIURI* aURI)
 		     channelPolicy);
   NS_ENSURE_SUCCESS(rv, rv);
 
-  nsRefPtr<LoadListener> listener = new LoadListener(this);
+  nsRefPtr<WebVTTLoadListener> listener = new WebVTTLoadListener(this);
   channel->SetNotificationCallbacks(listener);
 
   LOG(PR_LOG_DEBUG, ("opening webvtt channel"));

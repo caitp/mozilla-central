@@ -184,10 +184,9 @@ WebVTTLoadListener::ConvertCueToTextTrackCue(const webvtt_cue *aCue)
 {
   const char* text = reinterpret_cast<const char *>(webvtt_string_text(&aCue->id));
   
-  // TODO: What to pass in for aGlobal?
-  TextTrackCue textTrackCue(/* nsISupports *aGlobal here */, 
+  TextTrackCue textTrackCue(mElement->OwnerDoc()->GetParentObject(),
                             aCue->from, aCue->until,
-                            NS_ConvertUTF8toUTF16(text);
+                            NS_ConvertUTF8toUTF16(text));
   
   textTrackCue.SetSnapToLines(aCue->snap_to_lines);
   textTrackCue.SetSize(aCue->settings.size);
@@ -326,6 +325,7 @@ OnParsedCueWebVTTCallBack(void *aUserData, webvtt_cue *aCue)
 {
   WebVTTLoadListener *self = reinterpret_cast<WebVTTLoadListener *>(aUserData);
   self->OnParsedCue(aCue);
+  return WEBVTT_SUCCESS;
 }
 
 static int WEBVTT_CALLBACK 
@@ -334,6 +334,7 @@ OnReportErrorWebVTTCallBack(void *aUserData, uint32_t aLine,
 {
   WebVTTLoadListener *self = reinterpret_cast<WebVTTLoadListener *>(aUserData);
   self->OnReportError(aLine, aCol, aError);
+  return WEBVTT_SUCCESS;
 }
 
 } // namespace dom
