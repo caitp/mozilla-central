@@ -243,8 +243,7 @@ WebVTTLoadListener::ConvertNodeToCueTextContent(const webvtt_node *aWebVttNode)
   nsCOMPtr<nsIContent> cueTextContent;
   nsINodeInfo* nodeInfo;
   
-  if (WEBVTT_IS_VALID_INTERNAL_NODE(aWebVttNode->kind))
-  {   
+  if (WEBVTT_IS_VALID_INTERNAL_NODE(aWebVttNode->kind)) {   
     nodeInfo = mElement->NodeInfo();
     NS_NewHTMLElement(getter_AddRefs(cueTextContent), nodeInfo, mozilla::dom::NOT_FROM_PARSER);
     
@@ -271,7 +270,6 @@ WebVTTLoadListener::ConvertNodeToCueTextContent(const webvtt_node *aWebVttNode)
       case WEBVTT_VOICE: 
       {
         *qualifiedName = NS_LITERAL_STRING("span");
-        
         nsCOMPtr<nsGenericHTMLElement> htmlElement = 
           do_QueryInterface(cueTextContent);
         
@@ -289,8 +287,8 @@ WebVTTLoadListener::ConvertNodeToCueTextContent(const webvtt_node *aWebVttNode)
 
     nsCOMPtr<nsIDOMHTMLElement> htmlElement = do_QueryInterface(cueTextContent);
     
-    // TODO:: Need to concatenate all applicable classes separated by spaces and
-    //        set them to the htmlElements class attribute
+    // TODO: Need to concatenate all applicable classes separated by spaces and
+    //       set them to the htmlElements class attribute
     htmlElement->SetAttributeNS(NS_LITERAL_STRING("html"), *qualifiedName, 
                                 NS_LITERAL_STRING(""));
 
@@ -306,14 +304,16 @@ WebVTTLoadListener::ConvertNodeToCueTextContent(const webvtt_node *aWebVttNode)
       {
         nodeInfo = mElement->NodeInfo();
         NS_NewTextNode(getter_AddRefs(cueTextContent), nodeInfo->NodeInfoManager());
-        
+
         if (!cueTextContent) {
           return nullptr;
         }
-        const char* text = reinterpret_cast<const char *>(
-          webvtt_string_text(&aWebVttNode->data.text));
-      
-        cueTextContent->SetText(NS_ConvertUTF8toUTF16(text), false);
+        {
+          const char* text = reinterpret_cast<const char *>(
+            webvtt_string_text(&aWebVttNode->data.text));
+
+          cueTextContent->SetText(NS_ConvertUTF8toUTF16(text), false);
+        }
         break;
       }
       case WEBVTT_TIME_STAMP:
@@ -333,7 +333,6 @@ OnParsedCueWebVTTCallBack(void *aUserData, webvtt_cue *aCue)
 {
   WebVTTLoadListener *self = reinterpret_cast<WebVTTLoadListener *>(aUserData);
   self->OnParsedCue(aCue);
-  return WEBVTT_SUCCESS;
 }
 
 static int WEBVTT_CALLBACK 
